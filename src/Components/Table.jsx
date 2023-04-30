@@ -1,8 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useContext } from "react";
 import "../Styles/Table.css";
+import { dataContext } from "./App";
+import { AiFillDelete } from "react-icons/ai";
 
-export default function Table({ data, getData }) {
-  useEffect = (() => {}, []);
+export default function Table() {
+  const { data, searchData, getData } = useContext(dataContext);
+
+  function removeItem(id) {
+    fetch(`http://localhost:8049/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then(() => {
+        getData();
+      });
+  }
 
   return (
     <div className="table">
@@ -16,21 +28,51 @@ export default function Table({ data, getData }) {
             <th>Govt ID</th>
             <th>Guardian Details</th>
             <th>Nationality</th>
+            <th>Remove</th>
           </tr>
         </thead>
         <tbody>
-          {data?.map((data) => {
+          {(searchData.length != 0 ? searchData : data)?.map((data, i) => {
             return (
-              <tr>
+              <tr key={i}>
                 <td>{data.name}</td>
                 <td>
-                  {data.age}/{data.sex}
+                  {data.age} /{" "}
+                  {data.gender === "male"
+                    ? "M"
+                    : data.gender === "female"
+                    ? "F"
+                    : "O"}
                 </td>
-                <td>{data.mobile}</td>
-                <td>{data.address}</td>
-                <td>{data.govtid}</td>
-                <td>{data.guardian}</td>
-                <td>{data.nationality}</td>
+                <td>{data.mobile || "-"}</td>
+                <td>
+                  {data.address
+                    ? data.address +
+                      ", " +
+                      data.city +
+                      ", " +
+                      data.state +
+                      ", " +
+                      data.country +
+                      ", " +
+                      data.pincode
+                    : "-"}
+                </td>
+                <td>
+                  {data?.govtidType?.toUpperCase() || "-"} /{" "}
+                  {data.govtid.toUpperCase() || "-"}
+                </td>
+                <td>
+                  {data.guardianName || "-"} / {data.emergencyContact || "-"}
+                </td>
+                <td>{data.nationality || "-"}</td>
+                <td>
+                  <AiFillDelete
+                    className="btn-icon"
+                    style={{ color: "red" }}
+                    onClick={() => removeItem(data._id)}
+                  />
+                </td>
               </tr>
             );
           })}

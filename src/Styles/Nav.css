@@ -1,11 +1,12 @@
 .nav {
   width: 100%;
-  padding: 0.5rem 2rem;
+  padding: 1rem 2rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   box-sizing: border-box;
   gap: 1rem;
+  margin-top: 1rem;
 }
 
 .nav-search {
@@ -37,19 +38,4 @@
   pointer-events: none;
   color: gray;
   pointer-events: none;
-}
-
-.nav-show {
-  font-size: 1rem;
-  font-weight: 500;
-  color: gray;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.nav-select {
-  padding: 0.4rem;
-  outline: none;
 }

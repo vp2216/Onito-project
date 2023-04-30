@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import "../Styles/Add.css";
 import Personal from "./Personal";
 import Contacts from "./Contacts";
@@ -8,8 +8,14 @@ import { AiOutlineClose, AiOutlineCheck } from "react-icons/ai";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { dataContext } from "./App";
+import { useNavigate } from "react-router-dom";
 
-export default function Add({ setShowAdd, getData }) {
+export default function Add() {
+  const navigate = useNavigate();
+
+  const { getData } = useContext(dataContext);
+
   const schema = yup.object().shape({
     name: yup.string().required("Please enter the name field"),
     age: yup.lazy((value) =>
@@ -79,7 +85,7 @@ export default function Add({ setShowAdd, getData }) {
                 .test(
                   "len",
                   "Please enter a valid aadhar number",
-                  (val) => val.toString().length === 6
+                  (val) => val.toString().length === 12
                 )
         );
       } else if (govtidType == "pan") {
@@ -100,13 +106,18 @@ export default function Add({ setShowAdd, getData }) {
   });
 
   function formSubmit(data) {
-    fetch("", {
+    fetch("http://localhost:8049/", {
       method: "POST",
       body: JSON.stringify(data),
-    }).then(() => {
-      getData();
-      setShowAdd(false);
-    });
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then(() => {
+        getData();
+        navigate("/");
+      });
   }
 
   useEffect(() => {
@@ -123,7 +134,7 @@ export default function Add({ setShowAdd, getData }) {
         <Address register={register} />
         <Others register={register} />
         <div className="add-btns">
-          <button className="btn" onClick={() => setShowAdd(false)}>
+          <button className="btn" onClick={() => navigate("/")}>
             <AiOutlineClose className="btn-icon" />
             Cancel
           </button>

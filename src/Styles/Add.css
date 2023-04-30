@@ -13,15 +13,6 @@
   padding: 1rem;
   overflow-y: scroll;
   overflow-x: hidden;
-  background: white;
-  box-shadow: 5px 5px 10px gray;
-  position: fixed;
-  top: 2.5rem;
-  left: 2.5rem;
-  right: 2.5rem;
-  bottom: 2.5rem;
-  box-sizing: border-box;
-  border-radius: 0.25rem;
   flex-direction: column;
 }
 
