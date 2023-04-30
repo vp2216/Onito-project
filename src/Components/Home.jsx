@@ -9,7 +9,20 @@ export default function Home() {
   const [data, setData] = useState("");
   const [loading, setLoading] = useState(true);
   const [showAdd, setShowAdd] = useState(false);
-  function getData() {}
+
+  function getData() {
+    setLoading(true);
+    fetch("")
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data);
+        setLoading(false);
+      });
+  }
+
+  // useEffect(() => {
+  //   getData();
+  // }, []);
 
   return (
     <>
@@ -19,13 +32,19 @@ export default function Home() {
           <IoAdd className="btn-icon" />
           Add
         </button>
-        {data.length === 0 ? (
-          <div className="message">No data to show</div>
+        {loading ? (
+          <div className="message">Loading data please wait...</div>
         ) : (
-          <Table data={data} getData={getData} />
+          <>
+            {data.length === 0 ? (
+              <div className="message">No data to show</div>
+            ) : (
+              <Table data={data} getData={getData} />
+            )}
+          </>
         )}
       </div>
-      {showAdd && <Add setShowAdd={setShowAdd} />}
+      {showAdd && <Add setShowAdd={setShowAdd} getData={getData} />}
     </>
   );
 }
