@@ -16,8 +16,16 @@ export default function Table() {
       });
   }
 
+  function horizontalScroll(event) {
+    const delta = Math.max(
+      -1,
+      Math.min(1, event.nativeEvent.wheelDelta || -event.nativeEvent.detail)
+    );
+    event.currentTarget.scrollLeft -= delta * 150;
+  }
+
   return (
-    <div className="table">
+    <div className="table" onWheel={horizontalScroll}>
       <table>
         <thead>
           <tr>
@@ -32,7 +40,7 @@ export default function Table() {
           </tr>
         </thead>
         <tbody>
-          {(searchData.length != 0 ? searchData : data)?.map((data, i) => {
+          {(searchData.length !== 0 ? searchData : data)?.map((data, i) => {
             return (
               <tr key={i}>
                 <td>{data.name}</td>
@@ -48,14 +56,10 @@ export default function Table() {
                 <td>
                   {data.address
                     ? data.address +
-                      ", " +
-                      data.city +
-                      ", " +
-                      data.state +
-                      ", " +
-                      data.country +
-                      ", " +
-                      data.pincode
+                      (data.city ? ", " + data.city : "") +
+                      (data.state ? ", " + data.state : "") +
+                      (data.country ? ", " + data.country : "") +
+                      (data.pincode ? ", " + data.pincode : "")
                     : "-"}
                 </td>
                 <td>

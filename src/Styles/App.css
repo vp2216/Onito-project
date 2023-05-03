@@ -11,7 +11,7 @@
   display: none;
 }
 
-.app {
+::-webkit-scrollbar-track .app {
   max-width: 100vw;
   overflow: hidden;
 }

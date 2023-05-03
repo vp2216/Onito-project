@@ -17,8 +17,10 @@ function App() {
     fetch("http://localhost:8049/")
       .then((res) => res.json())
       .then((data) => {
-        setData(data.data);
-        setLoading(false);
+        setTimeout(() => {
+          setData(data.data);
+          setLoading(false);
+        }, 500);
       });
   }
 
