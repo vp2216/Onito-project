@@ -106,7 +106,7 @@ export default function Add() {
   });
 
   function formSubmit(data) {
-    fetch("https://onito-project.onrender.com/", {
+    fetch("http://localhost:8049/", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {

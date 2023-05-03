@@ -14,7 +14,7 @@ function App() {
 
   function getData() {
     setLoading(true);
-    fetch("https://onito-project.onrender.com/")
+    fetch("http://localhost:8049/")
       .then((res) => res.json())
       .then((data) => {
         setTimeout(() => {

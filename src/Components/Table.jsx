@@ -7,7 +7,7 @@ export default function Table() {
   const { data, searchData, getData } = useContext(dataContext);
 
   function removeItem(id) {
-    fetch(`https://onito-project.onrender.com/${id}`, {
+    fetch(`http://localhost:8049/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
