@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 export default function Add() {
   const navigate = useNavigate();
 
-  const { getData } = useContext(dataContext);
+  const { getData, setMessage, setAdd } = useContext(dataContext);
 
   const schema = yup.object().shape({
     name: yup.string().required("Please enter the name field"),
@@ -115,6 +115,8 @@ export default function Add() {
     })
       .then((res) => res.json())
       .then(() => {
+        setAdd(true);
+        setMessage("Data Added");
         getData();
         navigate("/");
       });
@@ -122,7 +124,7 @@ export default function Add() {
 
   useEffect(() => {
     if (errors && Object.keys(errors).length !== 0)
-      alert(Object.values(errors)[0]?.message);
+      setMessage(Object.values(errors)[0]?.message);
   }, [errors]);
 
   return (

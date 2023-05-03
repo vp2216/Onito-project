@@ -5,6 +5,7 @@ import { IoAdd } from "react-icons/io5";
 import Table from "./Table";
 import { useNavigate } from "react-router-dom";
 import { dataContext } from "./App";
+import load from "../Assets/load.gif";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -23,7 +24,10 @@ export default function Home() {
         Add
       </button>
       {loading ? (
-        <div className="message">Loading data please wait...</div>
+        <>
+          <img src={load} alt="load" style={{width:"7rem"}}/>
+          <div className="message">please wait...</div>
+        </>
       ) : (
         <>
           {searchData.length === 0 && data.length === 0 ? (

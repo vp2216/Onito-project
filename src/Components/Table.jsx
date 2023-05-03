@@ -4,7 +4,8 @@ import { dataContext } from "./App";
 import { AiFillDelete } from "react-icons/ai";
 
 export default function Table() {
-  const { data, searchData, getData } = useContext(dataContext);
+  const { data, searchData, setSearchData, getData, setAdd, setMessage } =
+    useContext(dataContext);
 
   function removeItem(id) {
     fetch(`http://localhost:8049/${id}`, {
@@ -12,6 +13,10 @@ export default function Table() {
     })
       .then((res) => res.json())
       .then(() => {
+        const refreshedData = searchData.filter((data) => data._id != id);
+        setAdd(true);
+        setMessage("Data deleted");
+        setSearchData(refreshedData);
         getData();
       });
   }

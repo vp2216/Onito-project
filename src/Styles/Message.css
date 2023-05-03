@@ -1,0 +1,21 @@
+.popup {
+  position: fixed;
+  max-width: 200px;
+  top: 2rem;
+  right: 2rem;
+  transition: 400ms ease-in-out;
+  background: red;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.show {
+  transform: translateY(0%);
+}
+
+.hide {
+  transform: translateY(-300%);
+}
