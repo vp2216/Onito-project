@@ -4,7 +4,7 @@ import { BiSearch } from "react-icons/bi";
 import { dataContext } from "./App";
 
 export default function Nav() {
-  const { data, setSearchData } = useContext(dataContext);
+  const { data, setSearchData, setMessage } = useContext(dataContext);
 
   return (
     <div className="nav">
@@ -16,6 +16,7 @@ export default function Nav() {
             const requiredData = data.filter((data) =>
               data.name.toLowerCase().includes(e.target.value.toLowerCase())
             );
+            if (requiredData.length === 0) setMessage("No search data found");
             setSearchData(requiredData);
           }}
         />
